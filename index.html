@@ -3,85 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romantic Space-Themed Website</title>
+    <title>Romantic Gift</title>
     <style>
+        /* Space background */
         body {
             margin: 0;
+            height: 100vh;
             overflow: hidden;
-            background: black;
-            color: white;
-            font-family: 'Arial', sans-serif;
-        }
-        #canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;
+            background: url('your-space-background-image-url') no-repeat center center fixed;
+            background-size: cover;
         }
         .message {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 2em;
+            color: white;
+            font-size: 24px;
             text-align: center;
-            opacity: 0;
-            animation: fadeIn 5s infinite;
+            animation: fadeIn 3s;
         }
         @keyframes fadeIn {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Animated planets */
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            animation: orbit 10s linear infinite;
+        }
+        @keyframes orbit {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(300px, 300px); }
         }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <div class="message">Love is in the stars!</div>
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        // Create star field
-        const stars = [];
-        for (let i = 0; i < 1000; i++) {
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 2,
-                speed: Math.random() * 0.5,
-            });
-        }
-
-        // Create animated particles
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            stars.forEach(star => {
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'white';
-                ctx.fill();
-
-                // Move stars
-                star.x += star.speed;
-                if (star.x > canvas.width) {
-                    star.x = 0;
-                }
-            });
-            requestAnimationFrame(animate);
-        }
-
-        // Start animation
-        animate();
-
-        // Change message every few seconds
-        const messages = ["Love is in the stars!", "You are my universe!", "Together we shine brighter!"];
-        let messageIndex = 0;
-        setInterval(() => {
-            document.querySelector('.message').textContent = messages[messageIndex];
-            messageIndex = (messageIndex + 1) % messages.length;
-        }, 3000);
-    </script>
+    <div class="message">
+        haiii nita, semangat ya untuk menjalani kehidupan, im so proud of you, selalu jadi anak yang berbakti kepada orang tua ya....i love youuuu
+    </div>
+    <div class="planet" style="width: 50px; height: 50px; background-color: red; top: 10%; left: 20%; animation-duration: 5s;"></div>
+    <div class="planet" style="width: 40px; height: 40px; background-color: blue; top: 30%; left: 50%; animation-duration: 7s;"></div>
+    <div class="planet" style="width: 60px; height: 60px; background-color: green; top: 70%; left: 80%; animation-duration: 9s;"></div>
 </body>
 </html>

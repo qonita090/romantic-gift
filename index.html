@@ -3,16 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romantic Messages</title>
+    <title>Romantic Space-Themed Website</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 5s infinite;
+        }
+        @keyframes fadeIn {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
 </head>
-<body style="background-color: #f9eae0; font-family: Arial, sans-serif; color: #5c3e3e; text-align: center;">
-    <h1 style="font-size: 2.5em; margin-bottom: 20px;">Romantic Messages</h1>
-    <p style="font-size: 1.5em; margin: 10px;">Love is composed of a single soul inhabiting two bodies.</p>
-    <p style="font-size: 1.5em; margin: 10px;">You know you’re in love when you can’t fall asleep because reality is finally better than your dreams.</p>
-    <p style="font-size: 1.5em; margin: 10px;">The best thing to hold onto in life is each other.</p>
-    <p style="font-size: 1.5em; margin: 10px;">I love you not only for what you are, but for what I am when I am with you.</p>
-    <footer style="margin-top: 40px; font-size: 1em; color: #9b5e5e;">
-        <p>Updated on 2026-03-05 12:33:55 UTC</p>
-    </footer>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="message">Love is in the stars!</div>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Create star field
+        const stars = [];
+        for (let i = 0; i < 1000; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speed: Math.random() * 0.5,
+            });
+        }
+
+        // Create animated particles
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+
+                // Move stars
+                star.x += star.speed;
+                if (star.x > canvas.width) {
+                    star.x = 0;
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // Start animation
+        animate();
+
+        // Change message every few seconds
+        const messages = ["Love is in the stars!", "You are my universe!", "Together we shine brighter!"];
+        let messageIndex = 0;
+        setInterval(() => {
+            document.querySelector('.message').textContent = messages[messageIndex];
+            messageIndex = (messageIndex + 1) % messages.length;
+        }, 3000);
+    </script>
 </body>
 </html>

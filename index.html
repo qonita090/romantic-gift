@@ -3,48 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romantic Gift</title>
     <style>
-        /* Space background */
         body {
-            margin: 0;
-            height: 100vh;
-            overflow: hidden;
-            background: url('your-space-background-image-url') no-repeat center center fixed;
-            background-size: cover;
-        }
-        .message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            background-color: black;
             color: white;
-            font-size: 24px;
             text-align: center;
-            animation: fadeIn 3s;
+            overflow: hidden;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        /* Animated planets */
-        .planet {
+        canvas {
             position: absolute;
-            border-radius: 50%;
-            animation: orbit 10s linear infinite;
-        }
-        @keyframes orbit {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(300px, 300px); }
+            top: 0;
+            left: 0;
         }
     </style>
+    <title>Personalized Gift</title>
 </head>
 <body>
-    <div class="message">
-        haiii nita, semangat ya untuk menjalani kehidupan, im so proud of you, selalu jadi anak yang berbakti kepada orang tua ya....i love youuuu
-    </div>
-    <div class="planet" style="width: 50px; height: 50px; background-color: red; top: 10%; left: 20%; animation-duration: 5s;"></div>
-    <div class="planet" style="width: 40px; height: 40px; background-color: blue; top: 30%; left: 50%; animation-duration: 7s;"></div>
-    <div class="planet" style="width: 60px; height: 60px; background-color: green; top: 70%; left: 80%; animation-duration: 9s;"></div>
+    <h1>haiii nita, semangat ya untuk menjalani kehidupan, im so proud of you, selalu jadi anak yang berbakti kepada orang tua ya....i love youuuu</h1>
+    <canvas id="starCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const stars = [];
+        const starCount = 1000;
+
+        function createStars() {
+            for (let i = 0; i < starCount; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2 + 1,
+                    speed: Math.random() * 0.5 + 0.5
+                });
+            }
+        }
+
+        function drawStars() {
+            for (const star of stars) {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+            }
+        }
+
+        function updateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (const star of stars) {
+                star.y += star.speed;
+                if (star.y > canvas.height) {
+                    star.y = 0;
+                    star.x = Math.random() * canvas.width;
+                }
+            }
+            drawStars();
+        }
+
+        createStars();
+        setInterval(updateStars, 20);
+    </script>
 </body>
 </html>
